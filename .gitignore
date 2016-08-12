@@ -3,8 +3,10 @@
 # dependencies
 node_modules
 
-# production
+# development
 build
+
+# production
 dist
 
 # misc
