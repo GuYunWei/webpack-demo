@@ -15,6 +15,7 @@ var webapckConfig = {
     cache: true,
     devtool: "cheap-module-source-map",                     //生成sourcemap,便于开发调试
     entry:[                                                 //获取项目入口js文件
+        'babel-polyfill',
         "./src/js/index.js"
         // vendors:['react', 'jquery']
     ],
@@ -31,10 +32,19 @@ var webapckConfig = {
     module: {                                                //各种加载器，即让各种文件格式可用require引用
         noParse: [ "/node_modules"],
         loaders: [
-             {
+            {
+               'loader':'babel-loader',
                test: /[\.jsx|\.js ]$/,
-               exclude: /node_modules/,
-               loader: "babel"
+               include:[
+                   path.resolve(__dirname,'src'),           //指定app这个文件里面的采用babel
+               ],
+               exclude:[
+                   path.resolve(__dirname,'node_modules'),  //在node_modules的文件不被babel理会
+               ],
+               query:{
+                   plugins:['transform-runtime'],
+                   presets:['react-hmre', 'es2015','stage-0','react']
+               }
             },
             {
                test: /\.(scss|sass|css)$/,

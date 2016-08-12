@@ -1,11 +1,9 @@
 process.env.NODE_ENV = 'production';
-var fs = require('fs'),
-    path=require('path'),
+var path=require('path'),
     webpack = require('webpack'),
     HtmlWebpackPlugin = require('html-webpack-plugin'),
     ExtractTextPlugin = require("extract-text-webpack-plugin"),
     nodeModulesPath = path.resolve(process.cwd(), 'node_modules'),
-    CommonsChunkPlugin = require("webpack/lib/optimize/CommonsChunkPlugin"),
     deps = [
       'react/dist/react.min.js',
       'react-dom/dist/react-dom.min.js'
@@ -14,9 +12,10 @@ var fs = require('fs'),
 
 var webapckConfig = {
     cache: true,
-    entry:[                                                 //获取项目入口js文件
-        "./src/js/index.js"
-    ],
+    entry:{                                                 //获取项目入口js文件
+        index: [ path.resolve(__dirname,'./src/js/index.js') ],
+        react: [ 'babel-polyfill', 'react', 'react-dom' ]
+    },
     output:{
         path: path.join(__dirname,'dist'),                  //文件输出目录
         publicPath: "/demo/dist/",                       //用于配置文件发布路径，如CDN或本地服务器
@@ -31,6 +30,20 @@ var webapckConfig = {
         noParse: [ "/node_modules"],
         loaders: [
             {
+               'loader':'babel-loader',
+               test: /[\.jsx|\.js ]$/,
+               include:[
+                   path.resolve(__dirname,'src'),           //指定app这个文件里面的采用babel
+               ],
+               exclude:[
+                   path.resolve(__dirname,'node_modules'),  //在node_modules的文件不被babel理会
+               ],
+               query:{
+                   plugins:['transform-runtime'],
+                   presets:['es2015','stage-0','react']
+               }
+            },
+            {
                test: /\.(scss|sass|css)$/,
                loader: ExtractTextPlugin.extract('style-loader', 'css-loader?sourceMap!postcss-loader!sass-loader')
             },
@@ -41,17 +54,12 @@ var webapckConfig = {
             {   
                 test: /\.(woff|woff2|eot|ttf|svg|svgz)(\?.*$|$)/, 
                 loader: 'url?importLoaders=1&limit=25000&name=/fonts/[name].[ext]' 
-            },
-            {
-               test: /[\.jsx|\.js ]$/,
-               exclude: /node_modules/,
-               loader: "babel"
-           }
+            }
         ]
     },
     plugins:[
+        new webpack.optimize.CommonsChunkPlugin('react', 'js/react.min.js'),                  //将公共代码抽离出来合并为一个文件
         new webpack.optimize.OccurrenceOrderPlugin(),
-        new CommonsChunkPlugin({ name: "common", filename: "js/common.min.js" }),                  //将公共代码抽离出来合并为一个文件
         new webpack.ProvidePlugin({
             'React':'react',                                  //提供全局的变量，在模块中使用无需用require引入
              // $: 'jquery'
@@ -81,15 +89,7 @@ var webapckConfig = {
                 collapseWhitespace:true                       //删除空白符与换行符
             }
         })
-    ],
-    devServer:{
-        hot: true,
-        inline: true,
-        progress: true,
-        contentBase:'./dist/view',
-        headers: { 'Access-Control-Allow-Origin': '*' },
-        historyApiFallback: true
-    }
+    ]
 };
 
 deps.forEach(function(dep){

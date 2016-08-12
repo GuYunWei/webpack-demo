@@ -5,7 +5,7 @@
   "description": "React + ES6 + webpack探索",
   "main": "index.js",
   "scripts": {
-    "pub": "webpack -p --process --colors --profile --config webpack.pro.config.js",
+    "deploy": "webpack -p --process --colors --profile --config webpack.production.config.js",
     "dev": "webpack-dev-server --inline --progress --profile --colors --hot --port 9999",
     "dist": "NODE_ENV=production webpack -p"
   },
@@ -22,9 +22,11 @@
     "babel-core": "^6.11.4",
     "babel-loader": "^6.2.4",
     "babel-plugin-react-transform": "^2.0.2",
+    "babel-plugin-transform-runtime": "^6.12.0",
     "babel-preset-es2015": "^6.9.0",
     "babel-preset-react": "^6.11.1",
     "babel-preset-react-hmre": "^1.1.1",
+    "babel-preset-stage-0": "^6.5.0",
     "css-loader": "^0.23.0",
     "extract-text-webpack-plugin": "^0.9.1",
     "file-loader": "^0.8.5",
@@ -42,6 +44,8 @@
     "webpack-dev-server": "^1.14.1"
   },
   "dependencies": {
+    "babel-polyfill": "^6.13.0",
+    "babel-runtime": "^6.11.6",
     "history": "^2.1.2",
     "react": "^15.2.1",
     "react-dom": "^15.2.1",
