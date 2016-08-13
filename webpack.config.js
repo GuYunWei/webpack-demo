@@ -21,7 +21,7 @@ var webapckConfig = {
     ],
     output:{
         path: path.join(__dirname,'build'),                 //文件输出目录
-        publicPath: "/demo/build/",                          //用于配置文件发布路径，如CDN或本地服务器
+        publicPath: "/demo/build/",                         //用于配置文件发布路径，如CDN或本地服务器
         filename: "js/[name].js",                           //根据入口文件输出的对应多个文件名
         chunkFilename: "js/[name].[chunkhash:8].chunk.js"   // *按需加载生成的文件(非入口文件的命名规则)
     },
@@ -29,7 +29,7 @@ var webapckConfig = {
         alias: {                                            //配置别名，在项目中可缩减引用路径
         }
     },
-    module: {                                                //各种加载器，即让各种文件格式可用require引用
+    module: {                                               //各种加载器，即让各种文件格式可用require引用
         noParse: [ "/node_modules"],
         loaders: [
             {
@@ -79,8 +79,8 @@ var webapckConfig = {
             inject:true,                                      //允许插件修改哪些内容，包括head与body
             hash:true,                                        //为静态资源生成hash值
             minify:{                                          //压缩HTML文件
-                removeComments:false,                          //移除HTML中的注释
-                collapseWhitespace:false                       //删除空白符与换行符
+                removeComments:false,                         //移除HTML中的注释
+                collapseWhitespace:false                      //删除空白符与换行符
             }
         })
     ],

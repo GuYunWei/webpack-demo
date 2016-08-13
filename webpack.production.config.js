@@ -67,7 +67,7 @@ var webapckConfig = {
         // new ExtractTextPlugin("css/[name].css"),           //单独使用style标签加载css并设置其路径
         new webpack.optimize.UglifyJsPlugin({                 //js文件的压缩
             exclude: /\.min\.js($|\?)/i,
-            output: { comments: true },                       // remove all comments
+            output: { comments: false },                       // remove all comments
             compress: { warnings: true },
             sourceMap: true,                                  //这里的soucemap 不能少，可以在线上生成soucemap文件，便于调试
             mangle: true,
