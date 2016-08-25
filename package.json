@@ -7,8 +7,7 @@
   "scripts": {
     "start": "webpack",
     "deploy": "webpack -p --process --colors --profile --config webpack.production.config.js",
-    "dev": "webpack-dev-server --inline --progress --profile --colors --hot --port 9999",
-    "dist": "NODE_ENV=production webpack -p"
+    "dev": "webpack-dev-server --inline --progress --profile --colors --hot --port 9999"
   },
   "repository": {
     "type": "git",

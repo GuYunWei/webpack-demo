@@ -13,6 +13,7 @@ var fs = require('fs'),
 
 var webapckConfig = {
     cache: true,
+    debug:true,
     devtool: "cheap-module-source-map",                     //生成sourcemap,便于开发调试
     entry:[                                                 //获取项目入口js文件
         'babel-polyfill',
@@ -26,6 +27,8 @@ var webapckConfig = {
         chunkFilename: "js/[name].[chunkhash:8].chunk.js"   // *按需加载生成的文件(非入口文件的命名规则)
     },
     resolve: {
+        root: 'E:/demo',                    //绝对路径
+        extensions: ['', '.js', '.json', '.scss'],          //文件扩展名
         alias: {                                            //配置别名，在项目中可缩减引用路径
         }
     },
@@ -46,9 +49,10 @@ var webapckConfig = {
                    presets:['react-hmre', 'es2015','stage-0','react']
                }
             },
+            { test: /\.css$/, loader: "style!css" },
             {
-               test: /\.(scss|sass|css)$/,
-               loader: 'style!css?sourceMap!postcss!sass'
+               test: /\.(scss|sass)$/,
+               loader: 'style!css!postcss!sass?sourceMap'
             },
             {
                 test: /\.(png|jpg|jpeg|gif)$/, 
