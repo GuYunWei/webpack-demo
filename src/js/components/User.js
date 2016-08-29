@@ -1,5 +1,6 @@
 import React from 'react';
 import ajax from 'superagent';
+import { IndexLink, Link } from "react-router";
 
 export default class User extends React.Component {
 	constructor(props) {
@@ -22,20 +23,23 @@ export default class User extends React.Component {
 
 	render() {
 		return (
-			<ul>
-				{this.state.events.map((event, index)=>{
-					const eventType = event.type;
-					const repoName = event.repo.name;
-					const creationDate = event.created_at;
+			<div>
+				<p>You are here :<Link to="/" activeClassName="active">Home</Link>>{this.props.params.user}</p>
+				<ul>
+					{this.state.events.map((event, index)=>{
+						const eventType = event.type;
+						const repoName = event.repo.name;
+						const creationDate = event.created_at;
 
-					return (
-							<li key={index}>
-								<strong>{repoName}</strong>: {eventType}
-								at {creationDate}
-							</li>
-						)
-				})}
-			</ul>
+						return (
+								<li key={index}>
+									<strong>{repoName}</strong>: {eventType}
+									at {creationDate}
+								</li>
+							)
+					})}
+				</ul>
+			</div>
 		);
 	}
 }

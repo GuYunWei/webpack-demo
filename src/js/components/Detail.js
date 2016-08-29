@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router';
+import { Link, IndexLink } from 'react-router';
 import ajax from 'superagent';
 
 export default class Detail extends Component {
@@ -22,7 +22,6 @@ export default class Detail extends Component {
 		ajax.get(`${baseURL}/${this.props.params.repo}/${type}`)
 				.end((error, response) => {
 					if(!error&&response){
-						console.dir(response.body)
 						this.setState({ [type]: response.body });
 					}else{
 						console.log(`Error fetching ${ type }`, error);
@@ -76,6 +75,8 @@ export default class Detail extends Component {
 			content = this.renderPulls();
 		}
 		return (<div>
+				<p>You are here :<Link to="/" activeClassName="active">Home</Link>>{this.props.params.repo}</p>
+
 				<button onClick={this.selectMode.bind(this, 'commits')}>Show Commits</button>
 				<button onClick={this.selectMode.bind(this, 'forks')}>Show Forks</button>
 				<button onClick={this.selectMode.bind(this, 'pulls')}>Show Pulls</button>
