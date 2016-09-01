@@ -8,7 +8,8 @@
     "start": "webpack",
     "deploy": "webpack -p --process --colors --profile --config webpack.production.config.js",
     "dev": "webpack-dev-server --progress --profile --colors --hot --port 9999",
-    "test": "jest --verbose"
+    "test": "jest --verbose",
+    "lint": "eslint src"
   },
   "repository": {
     "type": "git",
@@ -46,6 +47,7 @@
     "react-transform-catch-errors": "^1.0.2",
     "react-transform-hmr": "^1.0.4",
     "redbox-react": "^1.3.0",
+    "redux-devtools": "^3.3.1",
     "style-loader": "^0.13.0",
     "url-loader": "^0.5.7",
     "webpack": "^1.12.9",
@@ -55,12 +57,11 @@
     "babel-polyfill": "^6.13.0",
     "babel-runtime": "^6.11.6",
     "history": "^2.1.2",
-    "react": "^15.2.1",
+    "react": "^15.3.1",
     "react-dom": "^15.2.1",
+    "react-redux": "^4.4.5",
     "react-router": "^2.6.1",
+    "redux": "^3.5.2",
     "superagent": "^2.1.0"
-  },
-  "eslintConfig": {
-    "extends": "./node_modules/react-scripts/config/eslint.js"
   }
 }

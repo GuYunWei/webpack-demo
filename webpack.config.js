@@ -65,12 +65,12 @@ var webapckConfig = {
         ]
     },
     plugins:[
+        new webpack.optimize.OccurenceOrderPlugin(),
         new CommonsChunkPlugin({ name: "common", filename: "js/common.js" }),                  //将公共代码抽离出来合并为一个文件
         new webpack.ProvidePlugin({
             'React':'react',                                  //提供全局的变量，在模块中使用无需用require引入
              $: 'jquery'
         }),
-        new webpack.optimize.OccurenceOrderPlugin(),
         new webpack.DefinePlugin({
             'process.env': {
                 NODE_ENV: '"development"',
