@@ -17,7 +17,7 @@ var webapckConfig = {
     devtool: "cheap-module-source-map",                     //生成sourcemap,便于开发调试
     entry:[                                                 //获取项目入口js文件
         'babel-polyfill',
-        "./src/js/index.js"
+        "./src/js/index"
         // vendors:['react', 'jquery']
     ],
     output:{
@@ -28,7 +28,7 @@ var webapckConfig = {
     },
     resolve: {
         root: 'E:/demo',                    //绝对路径
-        extensions: ['', '.js', '.json', '.scss'],          //文件扩展名
+        extensions: ['', '.js', '.jsx', '.json', '.scss'],          //文件扩展名
         alias: {                                            //配置别名，在项目中可缩减引用路径
         }
     },

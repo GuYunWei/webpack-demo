@@ -14,7 +14,7 @@ var path=require('path'),
 var webapckConfig = {
     devtool: 'source-map',
     entry:{                                                     //获取项目入口js文件
-        index: [ path.resolve(__dirname,'./src/js/index.js') ],
+        index: [ path.resolve(__dirname,'./src/js/index.jsx') ],
         react: [ 'babel-polyfill', 'react', 'react-dom' ]
     },
     output:{
@@ -24,6 +24,7 @@ var webapckConfig = {
         chunkFilename: "js/[name].[chunkhash:8].chunk.min.js"   // *按需加载生成的文件(非入口文件的命名规则)
     },
     resolve: {
+        extensions: ['', '.js', '.jsx', '.json', '.scss'],
         alias: {                                                //配置别名，在项目中可缩减引用路径
         }
     },
