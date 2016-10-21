@@ -1,5 +1,4 @@
-process.env.NODE_ENV = 'production';
-
+// process.env.NODE_ENV = 'production';
 var path=require('path'),
     webpack = require('webpack'),
     HtmlWebpackPlugin = require('html-webpack-plugin'),
@@ -15,11 +14,12 @@ var webapckConfig = {
     devtool: 'source-map',
     entry:{                                                     //获取项目入口js文件
         index: [ path.resolve(__dirname,'./src/js/index.jsx') ],
-        react: [ 'babel-polyfill', 'react', 'react-dom' ]
+        // react: [ 'babel-polyfill', 'react', 'react-dom' ],
+        vendors:[ 'babel-polyfill', 'react','react-dom','react-router','redux']    //第三方库和框架
     },
     output:{
         path: path.join(__dirname,'dist'),                      //文件输出目录
-        publicPath: "/demo/dist/",                              //用于配置文件发布路径，如CDN或本地服务器
+        publicPath: "/demo/dist/",                              //用于配置文件发布路径，如CDN或本地服务器,这个配置直接影响了图片的输出路径
         filename: "js/[name].min.js",                           //根据入口文件输出的对应多个文件名
         chunkFilename: "js/[name].[chunkhash:8].chunk.min.js"   // *按需加载生成的文件(非入口文件的命名规则)
     },
@@ -60,13 +60,14 @@ var webapckConfig = {
         ]
     },
     plugins:[
-        new webpack.optimize.CommonsChunkPlugin('react', 'js/react.min.js'),                  //将公共代码抽离出来合并为一个文件
+        new webpack.optimize.CommonsChunkPlugin({ name: "common", filename: "js/common.js" }),      //将公共代码抽离出来合并为一个文件
+        // new webpack.optimize.CommonsChunkPlugin('vendors', 'js/vendors.min.js'),   //将公共代码抽离出来合并为一个文件
         new webpack.optimize.OccurrenceOrderPlugin(),
-        new webpack.ProvidePlugin({
-            'React':'react',                                  //提供全局的变量，在模块中使用无需用require引入
+        new webpack.ProvidePlugin({                           //提供全局的变量，在模块中使用无需用require引入
+            'React':'react',
              $: 'jquery'
         }),
-        // new ExtractTextPlugin("css/[name].css"),           //单独使用style标签加载css并设置其路径
+        new ExtractTextPlugin("css/[name].css"),              //单独使用style标签加载css并设置其路径
         new webpack.optimize.UglifyJsPlugin({                 //js文件的压缩
             exclude: /\.min\.js($|\?)/i,
             output: { comments: false },                      // remove all comments
@@ -76,9 +77,9 @@ var webapckConfig = {
             except: ['$super', '$', 'exports', 'require']     //排除关键字
         }),
         new webpack.DefinePlugin({
-            'process.env': {
-                NODE_ENV: '"production"',
-            },
+          "process.env": { 
+             NODE_ENV: JSON.stringify("production")           //配置环境变量到Production，防止控制台警告
+           }
         }),
         new HtmlWebpackPlugin({                               //根据模板插入css/js等生成最终HTML
             favicon:'./src/img/favicon.ico',                  //favicon路径

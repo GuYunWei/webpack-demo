@@ -1,17 +1,23 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Router, useRouterHistory } from 'react-router';
-import { createHashHistory } from 'history';
-import { combineReducers, createStore } from 'redux';
-import { Provider, connect } from 'react-redux'
-import routes from './routes';
+import { createStore, combineReducers } from 'redux';
+import { Provider, connect } from "react-redux";
+import expect from "expect";
+import deepFreeze from "deep-freeze";
 
-const history = useRouterHistory(createHashHistory)({ queryKey: false });
+import { createActions, handleAction, combineActions } from 'redux-actions';
+const { increment, decrement } = createActions({
+  INCREMENT: amount => ({ amount }),
+  DECREMENT: amount => ({ amount: -amount }),
+})
 
-// let reducer = combineReducers({ visibilityFilter, todos });
-// let store = createStore(reducer);
+const reducer = handleAction(combineActions(increment, decrement), {
+  next: (state, { payload: { amount } }) => ({ ...state, counter: state.counter + amount }),
+  throw: state => ({ ...state, counter: 0 }),
+}, { counter: 10 })
 
-ReactDOM.render(
-	<Router history={history} onUpdate={() => window.scrollTo(0, 0)} routes={routes} />,
-	document.getElementById('root')
-);
+expect(reducer(undefined, increment(1))).toEqual({ counter: 11 })
+expect(reducer(undefined, decrement(1))).toEqual({ counter: 9 })
+expect(reducer(undefined, decrement(new Error()))).toEqual({ counter: 0 })
+expect(reducer(undefined, increment(new Error()))).toEqual({ counter: 0 })
+console.log(reducer(undefined, increment(new Error())))
