@@ -15,7 +15,7 @@ var webapckConfig = {
     entry:{                                                     //获取项目入口js文件
         index: [ path.resolve(__dirname,'./src/js/index.jsx') ],
         // react: [ 'babel-polyfill', 'react', 'react-dom' ],
-        vendors:[ 'babel-polyfill', 'react','react-dom','react-router','redux']    //第三方库和框架
+        vendors:['babel-polyfill', 'react','react-dom','react-router','redux', 'react-redux']    //第三方库和框架
     },
     output:{
         path: path.join(__dirname,'dist'),                      //文件输出目录

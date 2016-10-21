@@ -20,7 +20,7 @@ var webapckConfig = {
         // 'babel-polyfill',
         // "./src/js/index"
         index: [ path.resolve(__dirname,'./src/js/index.jsx') ],
-        vendors:[ 'babel-polyfill', 'react','react-dom','react-router','redux']    //第三方库和框架
+        vendors:['babel-polyfill', 'react','react-dom','react-router','redux', 'react-redux']    //第三方库和框架
     },
     output:{
         path: path.join(__dirname,'build'),                 //文件输出目录
