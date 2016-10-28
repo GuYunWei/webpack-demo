@@ -15,7 +15,7 @@ import User from './components/User';
 
 // const Root = ({ store }) => (
 //   <Provider store={store}>
-//     <Router history={history}>
+//     <Router history={history} routes={routes}>
 //       <Route path="/" component={App} />
 //     </Router>
 //   </Provider>
