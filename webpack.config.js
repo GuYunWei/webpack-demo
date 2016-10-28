@@ -32,6 +32,7 @@ var webapckConfig = {
         root: 'E:/demo',                    //绝对路径
         extensions: ['', '.js', '.jsx', '.json', '.scss'],  //文件扩展名
         alias: {                                            //配置别名，在项目中可缩减引用路径
+          css: path.resolve(__dirname,'./src/css')
         }
     },
     module: {                                               //各种加载器，即让各种文件格式可用require引用
