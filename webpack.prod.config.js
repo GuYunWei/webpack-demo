@@ -1,5 +1,9 @@
 // process.env.NODE_ENV = 'production';
 var path=require('path'),
+    precss = require('precss'),
+    cssnext = require('cssnext'),
+    autoprefixer = require('autoprefixer'),
+    cssnano = require('cssnano'),
     webpack = require('webpack'),
     HtmlWebpackPlugin = require('html-webpack-plugin'),
     ExtractTextPlugin = require("extract-text-webpack-plugin"),
@@ -47,7 +51,7 @@ var webapckConfig = {
             },
             {
                test: /\.(scss|sass|css)$/,
-               loader: ExtractTextPlugin.extract('style-loader', 'css-loader?sourceMap!postcss-loader!sass-loader')
+               loader: ExtractTextPlugin.extract('style-loader', 'css-loader!postcss-loader')  //这里的写法注意下
             },
             {
                 test: /\.(png|jpg|jpeg|gif)$/, 
@@ -58,6 +62,9 @@ var webapckConfig = {
                 loader: 'url?importLoaders=1&limit=25000&name=/fonts/[name].[ext]' 
             }
         ]
+    },
+    postcss: function() {
+      return [autoprefixer, cssnext, precss, cssnano]
     },
     plugins:[
         new webpack.optimize.CommonsChunkPlugin({ name: "common", filename: "js/common.js" }),      //将公共代码抽离出来合并为一个文件
@@ -82,7 +89,7 @@ var webapckConfig = {
            }
         }),
         new HtmlWebpackPlugin({                               //根据模板插入css/js等生成最终HTML
-            favicon:'./src/img/favicon.ico',                  //favicon路径
+            favicon:'./src/images/favicon.ico',                  //favicon路径
             template:'./src/view/index.html',                 //html模板路径
             filename:'/view/index.html',                      //生成的html存放路径，相对于 path
             inject:true,                                      //允许插件修改哪些内容，包括head与body

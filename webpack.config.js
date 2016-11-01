@@ -32,7 +32,8 @@ var webapckConfig = {
         root: 'E:/demo',                    //绝对路径
         extensions: ['', '.js', '.jsx', '.json', '.scss'],  //文件扩展名
         alias: {                                            //配置别名，在项目中可缩减引用路径
-          css: path.resolve(__dirname,'./src/css')
+          css: path.resolve(__dirname,'./src/css'),
+          images: path.resolve(__dirname,'./images')
         }
     },
     module: {                                               //各种加载器，即让各种文件格式可用require引用
@@ -55,7 +56,7 @@ var webapckConfig = {
             { test: /\.css$/, loader: "style!css" },
             {
                test: /\.(scss|sass)$/,
-               loader: 'style!css!postcss!sass?sourceMap'
+               loader: 'style!css!sass?sourceMap'
             },
             {
                 test: /\.(png|jpg|jpeg|gif)$/, 
@@ -69,6 +70,7 @@ var webapckConfig = {
     },
     plugins:[
         new webpack.optimize.OccurenceOrderPlugin(),
+        // new ExtractTextPlugin("css/[name].css"),              //单独使用style标签加载css并设置其路径
         new OpenBrowserPlugin({ url: 'http://localhost:9999' }),
         new CommonsChunkPlugin({ name: "common", filename: "js/common.js" }),                  //将公共代码抽离出来合并为一个文件
         new webpack.ProvidePlugin({
