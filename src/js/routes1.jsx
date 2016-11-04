@@ -1,8 +1,5 @@
 import React from 'react';
 import { Router, Route, IndexRoute, useRouterHistory } from 'react-router';
-// import { createHashHistory } from 'history';
-// import { combineReducers, createStore } from 'redux';
-// import { Provider, connect } from 'react-redux';
 
 import App from './components/App';
 import List from './components/List';
@@ -21,17 +18,10 @@ import User from './components/User';
 //   </Provider>
 // );
 
-// Root.propTypes = {
-//   store: PropTypes.object.isRequired,
-// };
-
-// export default Root;
-
-const routes = (
+export default const routes = (
 	<Route path="/" component={App}>
 		<IndexRoute component={List} />
 		<Route path="detail/:repo" component={Detail} />
 		<Route path="user/:user" component={User} />
 	</Route>
 );
-export default routes;

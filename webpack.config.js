@@ -19,21 +19,21 @@ var webapckConfig = {
     entry:{                                                 //获取项目入口js文件
         // 'babel-polyfill',
         // "./src/js/index"
-        index: [ path.resolve(__dirname,'./src/js/index.jsx') ],
+        index: [path.resolve(__dirname, './src/index.js')],
         vendors:['babel-polyfill', 'react','react-dom','react-router','redux', 'react-redux']    //第三方库和框架
     },
     output:{
-        path: path.join(__dirname,'build'),                 //文件输出目录
+        path: path.resolve(__dirname, 'build'),             //文件输出目录
         publicPath: "/demo/build/",                         //用于配置文件发布路径，如CDN或本地服务器
         filename: "js/[name].js",                           //根据入口文件输出的对应多个文件名
         chunkFilename: "js/[name].[chunkhash:8].chunk.js"   //按需加载生成的文件(非入口文件的命名规则)
     },
     resolve: {
-        root: 'E:/demo',                    //绝对路径
+        root: 'E:/demo',                                    //绝对路径
         extensions: ['', '.js', '.jsx', '.json', '.scss'],  //文件扩展名
         alias: {                                            //配置别名，在项目中可缩减引用路径
-          css: path.resolve(__dirname,'./src/css'),
-          images: path.resolve(__dirname,'./images')
+          'css': path.resolve(__dirname,'./src/css'),
+          'img': path.resolve(__dirname,'./images')
         }
     },
     module: {                                               //各种加载器，即让各种文件格式可用require引用
@@ -53,17 +53,32 @@ var webapckConfig = {
                    presets:['react-hmre', 'es2015','stage-0','react']
                }
             },
-            { test: /\.css$/, loader: "style!css" },
+            { 
+              test: /\.css$/,
+              // include:[
+              //     path.resolve(__dirname,'src/css'),
+              // ],
+              loader: "style!css" 
+            },
             {
                test: /\.(scss|sass)$/,
+               // include:[
+               //     path.resolve(__dirname,'src/css'),
+               // ],
                loader: 'style!css!sass?sourceMap'
             },
             {
-                test: /\.(png|jpg|jpeg|gif)$/, 
+                test: /\.(ico|png|jpg|jpeg|gif)$/,
+                // include:[
+                //     path.resolve(__dirname,'src/images'),
+                // ],
                 loader: 'url-loader?limit=8192&name=./images/[name]-[hash].[ext]'
             },
             {   
-                test: /\.(woff|woff2|eot|ttf|svg|svgz)(\?.*$|$)/, 
+                test: /\.(woff|woff2|eot|ttf|svg|svgz)(\?.*$|$)/,
+                // include:[
+                //     path.resolve(__dirname,'src/css'),
+                // ],
                 loader: 'url?importLoaders=1&limit=25000&name=/fonts/[name].[ext]' 
             }
         ]
@@ -83,9 +98,9 @@ var webapckConfig = {
             },
         }),
         new HtmlWebpackPlugin({                               //根据模板插入css/js等生成最终HTML
-            // favicon:'./src/img/favicon.ico',                  //favicon路径
-            template:'./src/view/index.html',                 //html模板路径
-            filename:'/view/index.html',                      //生成的html存放路径，相对于 path
+            favicon:'./public/favicon.ico',                 //favicon路径
+            template:'./public/index.html',                 //html模板路径
+            filename:'/index.html',                      //生成的html存放路径，相对于 path
             inject:true,                                      //允许插件修改哪些内容，包括head与body
             hash:true,                                        //为静态资源生成hash值
             minify:{                                          //压缩HTML文件

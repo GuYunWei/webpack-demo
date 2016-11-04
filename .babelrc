@@ -1,6 +1,37 @@
 {
   "presets": ["react", "es2015", "stage-0"],
   "plugins": ["transform-runtime"],
+  "ignore":[
+          "reselect.js",
+          "jquery.js",
+          "jquery.min.js",
+          "react.js",
+          "react.min.js",
+          "react-dom.js",
+          "react-dom.min.js",
+          "react-dom-server.js",
+          "react-dom-server.min.js",
+          "react-with-addons.js",
+          "react-with-addons.min.js",
+          "ReactRouterRedux.js",
+          "ReactRouterRedux.min.js",
+          "redux.js",
+          "redux.min.js",
+          "redux-thunk.js",
+          "redux-thunk.min.js",
+          "react-redux.js",
+          "react-redux.min.js",
+          "redux-actions.js",
+          "redux-actions.min.js",
+          "bootstrap.js",
+          "bootstrap.min.js",
+          "polyfill.js",
+          "polyfill.min.js",
+          "es6-promise.js",
+          "es6-promise.min.js",
+          "redbox.js",
+          "redbox.min.js"
+      ],
   "env": {
     "development": {
       "presets": ["react-hmre"]
