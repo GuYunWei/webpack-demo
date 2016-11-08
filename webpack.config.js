@@ -32,8 +32,8 @@ var webapckConfig = {
         root: 'E:/demo',                                    //绝对路径
         extensions: ['', '.js', '.jsx', '.json', '.scss'],  //文件扩展名
         alias: {                                            //配置别名，在项目中可缩减引用路径
-          'css': path.resolve(__dirname,'./src/css'),
-          'img': path.resolve(__dirname,'./images')
+          'css': path.resolve(__dirname,'./src/styles'),
+          'img': path.resolve(__dirname,'./src/images')
         }
     },
     module: {                                               //各种加载器，即让各种文件格式可用require引用
@@ -98,9 +98,9 @@ var webapckConfig = {
             },
         }),
         new HtmlWebpackPlugin({                               //根据模板插入css/js等生成最终HTML
-            favicon:'./public/favicon.ico',                 //favicon路径
-            template:'./public/index.html',                 //html模板路径
-            filename:'/index.html',                      //生成的html存放路径，相对于 path
+            favicon:'./public/favicon.ico',                   //favicon路径
+            template:'./public/index.html',                   //html模板路径
+            filename:'/index.html',                           //生成的html存放路径，相对于 path
             inject:true,                                      //允许插件修改哪些内容，包括head与body
             hash:true,                                        //为静态资源生成hash值
             minify:{                                          //压缩HTML文件

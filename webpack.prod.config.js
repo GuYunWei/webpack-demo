@@ -18,8 +18,8 @@ var webapckConfig = {
     devtool: 'source-map',
     entry:{                                                     //获取项目入口js文件
         index: [ path.resolve(__dirname, './src/index.js') ],
+        vendors:['babel-polyfill', 'react','react-dom','react-router','redux', 'react-redux'],    //第三方库和框架
         // react: [ 'babel-polyfill', 'react', 'react-dom' ],
-        vendors:['babel-polyfill', 'react','react-dom','react-router','redux', 'react-redux']    //第三方库和框架
     },
     output:{
         path: path.resolve(__dirname, 'dist'),                  //文件输出目录
@@ -41,7 +41,7 @@ var webapckConfig = {
                'loader':'babel-loader',
                test: /[\.jsx|\.js ]$/,
                include:[
-                   path.resolve(__dirname,'src/'),            //指定src/js这个文件里面的采用babel
+                   path.resolve(__dirname,'src/'),              //指定src/js这个文件里面的采用babel
                ],
                exclude:[
                    path.resolve(__dirname,'node_modules'),      //在node_modules的文件不被babel理会
@@ -77,6 +77,8 @@ var webapckConfig = {
           }), cssnext, precss, cssnano]
     },
     plugins:[
+        new webpack.optimize.DedupePlugin(),
+        new webpack.optimize.AggressiveMergingPlugin(),
         new webpack.optimize.CommonsChunkPlugin({ name: "common", filename: "js/common.min.js" }),      //将公共代码抽离出来合并为一个文件
         // new webpack.optimize.CommonsChunkPlugin('vendors', 'js/vendors.min.js'),   //将公共代码抽离出来合并为一个文件
         new webpack.optimize.OccurrenceOrderPlugin(),
@@ -107,9 +109,9 @@ var webapckConfig = {
            }
         }),
         new HtmlWebpackPlugin({                               //根据模板插入css/js等生成最终HTML
-            favicon:'./public/favicon.ico',                 //favicon路径
-            template:'./public/index.html',                 //html模板路径
-            filename:'/index.html',                      //生成的html存放路径，相对于 path
+            favicon:'./public/favicon.ico',                   //favicon路径
+            template:'./public/index.html',                   //html模板路径
+            filename:'/index.html',                           //生成的html存放路径，相对于 path
             inject:true,                                      //允许插件修改哪些内容，包括head与body
             hash:true,                                        //为静态资源生成hash值
             minify:{                                          //压缩HTML文件
