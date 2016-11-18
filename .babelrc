@@ -1,6 +1,6 @@
 {
   "presets": ["react", "es2015", "stage-0"],
-  "plugins": ["transform-runtime"],
+  "plugins": ["transform-runtime", ["import", [{ "libraryName": "antd", "style": "css" }]]],
   "ignore":[
           "reselect.js",
           "jquery.js",

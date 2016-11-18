@@ -18,16 +18,20 @@ var webapckConfig = {
     devtool: 'source-map',
     entry:{                                                     //获取项目入口js文件
         index: [ path.resolve(__dirname, './src/index.js') ],
-        vendors:['babel-polyfill', 'react','react-dom','react-router','redux', 'react-redux'],    //第三方库和框架
-        // react: [ 'babel-polyfill', 'react', 'react-dom' ],
+        vendors:[ 'react', 'react-dom', 'react-router', 'redux', 'react-redux', 'redux-thunk', 'redux-actions', 'es6-promise', 'babel-polyfill', 'redbox' ]
+        // vendors:['babel-polyfill', 'react','react-dom','react-router','redux', 'react-redux'],    //第三方库和框架
+        // react: [ 'react', 'react-dom', 'react-router', 'babel-polyfill' ],
+        // redux: [ 'redux', 'react-redux', 'redux-thunk', 'redux-actions', ],
+        // fetch: [ 'es6-promise', 'isomorphic-fetch',  ],
     },
     output:{
         path: path.resolve(__dirname, 'dist'),                  //文件输出目录
         publicPath: "/demo/dist/",                              //用于配置文件发布路径，如CDN或本地服务器,这个配置直接影响了图片的输出路径
         filename: "js/[name].min.js",                           //根据入口文件输出的对应多个文件名
-        chunkFilename: "js/[name].[chunkhash:8].chunk.min.js"   // *按需加载生成的文件(非入口文件的命名规则)
+        chunkFilename: "js/[name].[chunkhash:8].chunk.min.js"   //按需加载生成的文件(非入口文件的命名规则)
     },
     resolve: {
+        root: 'E:/demo',                                        //绝对路径
         extensions: ['', '.js', '.jsx', '.json', '.scss'],
         alias: {                                                //配置别名，在项目中可缩减引用路径
           'css': path.resolve(__dirname,'./src/css'),
@@ -78,10 +82,9 @@ var webapckConfig = {
     },
     plugins:[
         new webpack.optimize.DedupePlugin(),
-        new webpack.optimize.AggressiveMergingPlugin(),
-        new webpack.optimize.CommonsChunkPlugin({ name: "common", filename: "js/common.min.js" }),      //将公共代码抽离出来合并为一个文件
-        // new webpack.optimize.CommonsChunkPlugin('vendors', 'js/vendors.min.js'),   //将公共代码抽离出来合并为一个文件
         new webpack.optimize.OccurrenceOrderPlugin(),
+        new webpack.optimize.AggressiveMergingPlugin(),
+        new webpack.optimize.CommonsChunkPlugin("js/common.min.js"),      //将公共代码抽离出来合并为一个文件
         new webpack.ProvidePlugin({                           //提供全局的变量，在模块中使用无需用require引入
             'React':'react',
              $: 'jquery'
